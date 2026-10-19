@@ -15,8 +15,8 @@ An end-to-end, reproducible computational biophysics workflow orchestrated via *
 
 1. **Quantum Mechanical Metal-Center Parameterization (`Zn-S4`):** The structural Zinc-binding domain (`CYS141`, `CYS144`, `CYS166`, `CYS177` -> `CM1-CM4` + `ZN1`) is parameterized from first principles using **GAMESS-US** (`B3LYP/6-31G*` geometry optimization, Seminario Hessian force-constant projection, and Merz-Kollman `RESP` charge fitting) coupled to `MCPB.py`.
 2. **Apo Conformational Sampling (`50 ns`):** Explicit-solvent molecular dynamics in **OpenMM 8.6** (`AMBER ff19SB` + `OPC` water + `GAFF2` at `300 K` and `1 bar`), followed by K-means clustering (`k = 5`) across the 31-residue allosteric pocket over the equilibrated `10-50 ns` window.
-3. **Boltzmann-Weighted Ensemble Docking (`GNINA 1.3`):** Hybrid physical (`Vina`) and 3D convolutional neural network (`CNNscore` / `CNNaffinity`) docking across the static crystal receptor (`dry`) and the top 4 dynamic *Apo* centroids (`c0-c3`), penalized by conformational free energy ($\Delta G_{\text{conf}} = -RT \ln(p_i / p_0)$).
-4. **Holo-MD Production (`SIRT6_c1 + Zn + MDL800`, `50 ns`) & Allosteric Rescue Analysis:** `GAFF2/AM1-BCC` ligand parameterization via `ANTECHAMBER/sqm`, multi-stage harmonic-shielded `NVT/NPT` equilibration ($k: 10.0 \to 0.0\text{ kcal/mol/\AA}^2$), 50 ns production MD, and stationary-basin (`28-50 ns`) analysis ($\Delta\text{RMSF}$, $\Delta\text{DCCM}$, H-bond network, and exact AMBER non-bonded per-residue energy decomposition).
+3. **Boltzmann-Weighted Ensemble Docking (`GNINA 1.3`):** Hybrid physical (`Vina`) and 3D convolutional neural network (`CNNscore` / `CNNaffinity`) docking across the static crystal receptor (`dry`) and the top 4 dynamic *Apo* centroids (`c0-c3`), penalized by conformational free energy (Δ<i>G</i><sub>conf</sub> = −<i>RT</i> ln(<i>p<sub>i</sub></i> / <i>p</i><sub>0</sub>)).
+4. **Holo-MD Production (`SIRT6_c1 + Zn + MDL800`, `50 ns`) & Allosteric Rescue Analysis:** `GAFF2/AM1-BCC` ligand parameterization via `ANTECHAMBER/sqm`, multi-stage harmonic-shielded `NVT/NPT` equilibration (<i>k</i>: 10.0 → 0.0 kcal/mol/Å²), 50 ns production MD, and stationary-basin (`28-50 ns`) analysis (ΔRMSF, ΔDCCM, H-bond network, and exact AMBER non-bonded per-residue energy decomposition).
 
 ---
 
@@ -53,9 +53,9 @@ Following a cooperative *Induced-Fit* relaxation (`10-28 ns`), the ternary `SIRT
 
 ### 2.3. Top 10 Per-Residue Energetic Anchors of MDL800 (`results/analysis/mdl800_per_residue_energy.csv`)
 
-Exact decomposition of the AMBER Hamiltonian across the stationary basin reveals that **MDL800** binding is driven **79.5% by London dispersion forces ($\Delta E_{\text{vdW}} = -39.65\text{ kcal/mol}$)** against the hydrophobic/aromatic cage (`TRP71`, `VAL115`, `PHE64`, `ILE61`) and **20.5% by electrostatic interactions ($\Delta E_{\text{elec}} = -10.20\text{ kcal/mol}$)** anchored by a persistent bifurcated backbone hydrogen bond to **`VAL115` (`46.6%` occupancy)** and **`ASP116` (`13.6%`)**, alongside long-range *Induced-Fit* recruitment of **`ARG220`**:
+Exact decomposition of the AMBER Hamiltonian across the stationary basin reveals that **MDL800** binding is driven **79.5% by London dispersion forces (Δ<i>E</i><sub>vdW</sub> = −39.65 kcal/mol)** against the hydrophobic/aromatic cage (`TRP71`, `VAL115`, `PHE64`, `ILE61`) and **20.5% by electrostatic interactions (Δ<i>E</i><sub>elec</sub> = −10.20 kcal/mol)** anchored by a persistent bifurcated backbone hydrogen bond to **`VAL115` (`46.6%` occupancy)** and **`ASP116` (`13.6%`)**, alongside long-range *Induced-Fit* recruitment of **`ARG220`**:
 
-| AMBER Index | Crystal Residue (`5MF6`) | $\Delta E_{\text{vdW}}$ (kcal/mol) | $\Delta E_{\text{elec}}$ (kcal/mol) | $\Delta E_{\text{total}}$ (kcal/mol) | Allosteric Pocket (`< 8 Å` Crystal) |
+| AMBER Index | Crystal Residue (`5MF6`) | Δ<i>E</i><sub>vdW</sub> (kcal/mol) | Δ<i>E</i><sub>elec</sub> (kcal/mol) | Δ<i>E</i><sub>total</sub> (kcal/mol) | Allosteric Pocket (`< 8 Å` Crystal) |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | `:106` | **VAL115** | -4.196 | -3.656 | **-7.852** | True |
 | `:105` | **ASN114** | -1.332 | -3.064 | **-4.396** | True |

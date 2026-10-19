@@ -281,25 +281,25 @@ gs = fig.add_gridspec(2, 2, height_ratios=[1, 1])
 
 # Panel A: RMSD y Medoide
 ax1 = fig.add_subplot(gs[0, 0])
-ax1.axvspan(10.0, 28.0, color="lightgray", alpha=0.35, label="Relajación Induced-Fit (10-28 ns)")
+ax1.axvspan(10.0, 28.0, color="lightgray", alpha=0.35, label="Induced-Fit Relaxation (10-28 ns)")
 ax1.plot(time_ns, apo_rmsd["POCKET_RMSD"], label="Apo Pocket (vs Basin Avg)", color="slategray", alpha=0.75)
 ax1.plot(time_ns, holo_rmsd["POCKET_RMSD"], label="Holo Pocket (vs Basin Avg)", color="navy", linewidth=1.4)
 ax1.plot(time_ns, holo_rmsd["MDL800_POSE"], label="MDL800 Pose (vs Basin Avg)", color="crimson", alpha=0.85)
 ax1.plot(time_ns, holo_rmsd["ZN_TETRA"], label="Holo Zn-S4 Cluster", color="darkorange", linewidth=1.2)
 ax1.axvline(28.0, color="black", linestyle="--", linewidth=1.0)
-ax1.scatter([medoid_time_ns], [holo_rmsd.loc[best_idx_in_rmsd, "MDL800_POSE"]], color="gold", edgecolor="black", s=70, zorder=6, label=f"Medoide ({medoid_time_ns:.1f} ns)")
-ax1.set_xlabel("Tiempo de Simulación (ns)", fontweight="bold")
-ax1.set_ylabel("RMSD respecto a Cuenca Estacionaria (Å)", fontweight="bold")
-ax1.set_title("A. Convergencia Induced-Fit y Estabilidad en Cuenca (28-50 ns)", fontweight="bold")
+ax1.scatter([medoid_time_ns], [holo_rmsd.loc[best_idx_in_rmsd, "MDL800_POSE"]], color="gold", edgecolor="black", s=70, zorder=6, label=f"Basin Medoid ({medoid_time_ns:.1f} ns)")
+ax1.set_xlabel("Simulation Time (ns)", fontweight="bold")
+ax1.set_ylabel("RMSD vs. Stationary Basin Avg (Å)", fontweight="bold")
+ax1.set_title("A. Induced-Fit Convergence & Basin Stability (28-50 ns)", fontweight="bold")
 ax1.legend(loc="upper right", frameon=True, fontsize=8)
 ax1.grid(alpha=0.25)
 
 # Panel B: ΔDCCM
 ax2 = fig.add_subplot(gs[0, 1])
 im = ax2.imshow(delta_dccm, cmap="seismic", vmin=-0.6, vmax=0.6, origin="lower", extent=[1, 282, 1, 282])
-ax2.set_xlabel("Índice de Residuo AMBER (1-282)", fontweight="bold")
-ax2.set_ylabel("Índice de Residuo AMBER (1-282)", fontweight="bold")
-ax2.set_title("B. Reorganización Alostérica Estacionaria (ΔDCCM: 28-50 ns)", fontweight="bold")
+ax2.set_xlabel("AMBER Residue Index (1-282)", fontweight="bold")
+ax2.set_ylabel("AMBER Residue Index (1-282)", fontweight="bold")
+ax2.set_title("B. Stationary Allosteric Reorganization (ΔDCCM: 28-50 ns)", fontweight="bold")
 cbar = plt.colorbar(im, ax=ax2, fraction=0.046, pad=0.04)
 cbar.set_label("ΔC_ij (Holo - Apo)", fontweight="bold")
 
@@ -308,19 +308,19 @@ ax3 = fig.add_subplot(gs[1, 0])
 res_x = rmsf_df["AMBER_Res"].values
 d_rmsf = rmsf_df["Delta_RMSF"].values
 ax3.plot(res_x, d_rmsf, color="black", linewidth=1.1, label="ΔRMSF (Holo - Apo)")
-ax3.fill_between(res_x, d_rmsf, 0, where=(d_rmsf < 0), color="royalblue", alpha=0.4, label="Rigidez Bisagra (ΔRMSF < 0)")
-ax3.fill_between(res_x, d_rmsf, 0, where=(d_rmsf >= 0), color="indianred", alpha=0.35, label="Plasticidad Alostérica (ΔRMSF > 0)")
+ax3.fill_between(res_x, d_rmsf, 0, where=(d_rmsf < 0), color="royalblue", alpha=0.4, label="Hinge Rigidity / Damping (ΔRMSF < 0)")
+ax3.fill_between(res_x, d_rmsf, 0, where=(d_rmsf >= 0), color="indianred", alpha=0.35, label="Allosteric Plasticity (ΔRMSF > 0)")
 ax3.scatter(
     rmsf_df[rmsf_df["In_Allosteric_Pocket"]]["AMBER_Res"],
     rmsf_df[rmsf_df["In_Allosteric_Pocket"]]["Delta_RMSF"],
-    color="gold", edgecolor="black", zorder=5, s=30, label="Bolsillo Alostérico"
+    color="gold", edgecolor="black", zorder=5, s=30, label="Allosteric Pocket (31 res)"
 )
 ax3.axhline(0, color="black", linestyle="--", linewidth=0.8)
 ax3.set_xlim(20, 270)
 ax3.set_ylim(-0.6, 2.0)
-ax3.set_xlabel("Índice de Residuo AMBER (20-270)", fontweight="bold")
+ax3.set_xlabel("AMBER Residue Index (20-270)", fontweight="bold")
 ax3.set_ylabel("ΔRMSF (Å)", fontweight="bold")
-ax3.set_title("C. Modulación de Fluctuaciones Térmicas en Cuenca (28-50 ns)", fontweight="bold")
+ax3.set_title("C. Stationary Thermal Fluctuation Modulation (28-50 ns)", fontweight="bold")
 ax3.legend(loc="upper right", frameon=True, fontsize=8)
 ax3.grid(alpha=0.25)
 
@@ -329,13 +329,13 @@ ax4 = fig.add_subplot(gs[1, 1])
 top10_ene = ene_df.head(10).iloc[::-1]
 y_pos = np.arange(len(top10_ene))
 labels = [f"{r['PDB_5MF6']} (:{r['AMBER_Res']})" for _, r in top10_ene.iterrows()]
-ax4.barh(y_pos, top10_ene["E_vdW_kcal"], color="darkslateblue", alpha=0.85, label="ΔE_vdW (Dispersión / Hidrofóbico)")
-ax4.barh(y_pos, top10_ene["E_elec_kcal"], left=np.minimum(top10_ene["E_vdW_kcal"], 0), color="darkcyan", alpha=0.85, label="ΔE_elec (Coulomb / Puentes H)")
+ax4.barh(y_pos, top10_ene["E_vdW_kcal"], color="darkslateblue", alpha=0.85, label="ΔE_vdW (London Dispersion / Hydrophobic)")
+ax4.barh(y_pos, top10_ene["E_elec_kcal"], left=np.minimum(top10_ene["E_vdW_kcal"], 0), color="darkcyan", alpha=0.85, label="ΔE_elec (Coulomb / H-Bonds)")
 ax4.set_yticks(y_pos)
 ax4.set_yticklabels(labels, fontweight="bold")
 ax4.axvline(0, color="black", linewidth=0.8)
-ax4.set_xlabel("Energía Media de Interacción con MDL800 (kcal/mol)", fontweight="bold")
-ax4.set_title("D. Top 10 Residuos de Anclaje Energético de MDL800 (AMBER)", fontweight="bold")
+ax4.set_xlabel("Mean Interaction Energy with MDL800 (kcal/mol)", fontweight="bold")
+ax4.set_title("D. Top 10 Energetic Anchor Residues for MDL800 (AMBER)", fontweight="bold")
 ax4.legend(loc="lower left", frameon=True, fontsize=8.5)
 ax4.grid(alpha=0.25, axis="x")
 
