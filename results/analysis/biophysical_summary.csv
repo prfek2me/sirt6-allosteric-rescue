@@ -1,0 +1,7 @@
+Metric (Stationary Basin 28-50 ns),Apo (Mean ± SD),Holo-MDL800 (Mean ± SD)
+Folded Core Backbone RMSD (:25-265) (Å),0.65 ± 0.11,1.33 ± 0.18
+Zn-S4 Quantum Tetrahedron RMSD (Å),0.43 ± 0.09,0.42 ± 0.07
+Allosteric Pocket Basin RMSD (Å),0.95 ± 0.17,1.72 ± 0.25
+MDL800 Pose RMSD in Basin (nofit) (Å),N/A,1.31 ± 0.47
+MDL800 Internal Torsional RMSD (Å),N/A,0.57 ± 0.21
+Total Protein-MDL800 Non-Bonded Energy (kcal/mol),N/A,"-49.87 (vdW: -39.65, Elec: -10.20)"

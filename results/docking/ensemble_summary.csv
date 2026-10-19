@@ -1,0 +1,4 @@
+Ligand,Weighted_Vina_kcal,Best_State,Best_E_eff_kcal,Weighted_CNNaffinity,Best_State_CNNscore
+UBCS039,-6.93,c0,-7.02,4.99,0.64
+MDL800,-8.53,c2,-8.49,6.99,0.358
+NAM,-4.88,c0,-4.96,3.87,0.978

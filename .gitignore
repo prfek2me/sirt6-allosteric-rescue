@@ -1,0 +1,44 @@
+# Entornos, cachés de Snakemake y Python
+.snakemake/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Binarios externos (GAMESS-US y GNINA)
+bin/
+
+# Bloquear por defecto artefactos intermedios y trayectorias pesadas en results/
+results/*
+!results/mcpb/
+results/mcpb/*
+!results/mcpb/SIRT6_Zn_mcpbpy.frcmod
+!results/mcpb/ZN1.mol2
+!results/mcpb/CM*.mol2
+
+!results/clustering/
+results/clustering/*
+!results/clustering/cluster_summary.dat
+!results/clustering/pocket_box.txt
+
+!results/docking/
+results/docking/*
+!results/docking/ensemble_detailed.csv
+!results/docking/ensemble_summary.csv
+!results/docking/poses/
+results/docking/poses/*.log
+
+!results/holo_mdl800/
+results/holo_mdl800/*
+!results/holo_mdl800/MDL800.mol2
+!results/holo_mdl800/MDL800.frcmod
+
+!results/analysis/
+results/analysis/*
+!results/analysis/biophysical_summary.csv
+!results/analysis/mdl800_per_residue_energy.csv
+!results/analysis/rmsf_comparison.csv
+!results/analysis/holo_hbonds.dat
+!results/analysis/SIRT6_Holo_MDL800_basin_rep.pdb
+!results/analysis/allosteric_rescue_dashboard.png
+!results/analysis/*.png
+!results/analysis/*.jpg

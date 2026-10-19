@@ -1,0 +1,30 @@
+name: sirt6-env
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.10
+  # Dinámica Molecular y Aceleración GPU (CUDA 12.0-12.8 conserva libnvToolsExt.so.1 nativo para GNINA 1.3)
+  - cuda-version>=12.0,<12.9
+  - cuda-cudart
+  - cuda-nvtx
+  - libcublas
+  - libcufft
+  - libcusparse
+  - libcusolver
+  - openmm>=8.1
+  - pdbfixer
+  - ambertools=23
+  # Preparación y Topología
+  - rdkit
+  - propka
+  - openbabel
+  # Orquestación y Análisis
+  - snakemake-minimal
+  - mdanalysis
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - seaborn
+  - pyyaml

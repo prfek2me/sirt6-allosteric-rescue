@@ -1,0 +1,30 @@
+# Parámetros del sistema biológico
+system:
+  name: "sirt6_allosteric"
+  pdb_id: "5MF6"
+  target_chain: "A"
+
+# Criterio biofísico
+biophysics:
+  ph: 7.4
+  keep_ions: ["ZN"]
+  
+# Topología de Ligandos (Mapeo de nombres y cargas formales a pH 7.4)
+ligands:
+  NAM:
+    charge: 0
+  MDL800:
+    charge: 0  # Requerirá validación final con Dimorphite-DL
+  UBCS039:
+    charge: 0
+
+# Simulación Molecular (OpenMM + AMBER)
+md:
+  forcefield_protein: "amber14/protein.ff14SB.xml"
+  forcefield_water: "amber14/tip3p.xml"
+  temperature: 310.0      # 37°C fisiológico
+  padding_nm: 1.0         # Margen de la caja de agua
+  production_ns: 100      # 100 ns por réplica
+  replicas: 3
+  hmr_factor: 3.0         # Hydrogen Mass Repartitioning
+  dt_fs: 4                # Paso de integración en femtosegundos
